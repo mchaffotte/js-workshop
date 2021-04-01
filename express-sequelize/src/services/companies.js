@@ -14,3 +14,9 @@ exports.create = (company) => {
   const { name } = company;
   return Company.create({ name });
 };
+
+exports.delete = (id) => {
+  return Company.destroy({
+    where: { id },
+  });
+};

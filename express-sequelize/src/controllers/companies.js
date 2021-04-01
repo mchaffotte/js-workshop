@@ -27,4 +27,16 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.delete("/:id", async (req, res) => {
+  try {
+    await companyService.delete(req.params.id);
+    res.status(204).send();
+  } catch (err) {
+    console.log(err);
+    res.status(409).send({
+      message: message || "An error occurs while deleting the company",
+    });
+  }
+});
+
 module.exports = router;

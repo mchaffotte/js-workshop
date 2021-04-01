@@ -20,3 +20,13 @@ exports.delete = (id) => {
     where: { id },
   });
 };
+
+exports.findOne = async (id) => {
+  const company = await Company.findByPk(id);
+  if (!company) {
+    const notFoundError = new Error("The company was not found");
+    notFoundError.code = "NOT_FOUND";
+    throw notFoundError;
+  }
+  return Company.findByPk(id);
+};

@@ -1,0 +1,18 @@
+{
+  "name": "express-sequelize",
+  "description": "Workshop using express and sequelize",
+  "version": "1.0.0",
+  "private": true,
+  "keywords": [
+    "Express",
+    "Sequelize",
+    "backoffice"
+  ],
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

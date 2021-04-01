@@ -1,0 +1,11 @@
+version: "3.5"
+
+services:
+  server:
+    image: node:14
+    volumes:
+      - .:/app
+    working_dir: "/app"
+    ports:
+      - 8080:8080
+    command: bash -c 'yarn start'

@@ -3,9 +3,25 @@ version: "3.5"
 services:
   server:
     image: node:14
+    depends_on:
+      - db
     volumes:
       - .:/app
     working_dir: "/app"
     ports:
       - 8080:8080
-    command: bash -c 'yarn start'
+    command: bash -c 'while !</dev/tcp/db/3306; do sleep 1; done; yarn start'
+  db:
+    image: mysql:8.0.23
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    expose:
+      - "3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: adminadmin
+      MYSQL_DATABASE: public
+      MYSQL_USER: john_doe
+      MYSQL_PASSWORD: drowssap
+volumes:
+  db_data: {}

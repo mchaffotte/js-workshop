@@ -5,8 +5,9 @@ const router = require("express").Router();
 router.get("/", async (req, res) => {
   try {
     const companies = await companyService.findAll();
-    res.send(companies);
+    res.status(201).send(companies);
   } catch (err) {
+    console.log(err);
     res.status(409).send({
       message: err.message || "An error occurs while retriving companies",
     });

@@ -40,4 +40,20 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+router.get("/:id", async (req, res) => {
+  try {
+    const company = await companyService.findOne(req.params.id);
+    res.send(company);
+  } catch (err) {
+    console.log(err);
+    if (err.code === "NOT_FOUND") {
+      res.status(404).send();
+      return;
+    }
+    res.status(500).send({
+      message: message || "An error occurs while retrieving the company",
+    });
+  }
+});
+
 module.exports = router;

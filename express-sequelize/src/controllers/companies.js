@@ -2,10 +2,20 @@ const companyService = require("../services/companies.js");
 
 const router = require("express").Router();
 
+const getNumberFromString = (value) => {
+  const parsed = parseInt(value);
+  if (isNaN(parsed)) {
+    return undefined;
+  }
+  return parsed;
+};
+
 router.get("/", async (req, res) => {
+  const limit = getNumberFromString(req.query.limit);
+  const offset = getNumberFromString(req.query.offset);
   try {
-    const companies = await companyService.findAll();
-    res.status(201).send(companies);
+    const { count, rows } = await companyService.findAndCountAll(offset, limit);
+    res.status(201).send({ total: count, data: rows });
   } catch (err) {
     console.log(err);
     res.status(409).send({

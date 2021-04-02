@@ -1,8 +1,12 @@
 const db = require("../repository");
 const Company = db.companies;
 
-exports.findAll = () => {
-  return Company.findAll();
+exports.findAndCountAll = (offset = 0, limit = 10) => {
+  return Company.findAndCountAll({
+    limit: Math.max(10, limit),
+    offset: Math.max(0, offset),
+    order: ["id"],
+  });
 };
 
 exports.create = (company) => {

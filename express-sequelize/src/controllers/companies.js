@@ -35,7 +35,7 @@ router.delete("/:id", async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(409).send({
-      message: message || "An error occurs while deleting the company",
+      message: err.message || "An error occurs while deleting the company",
     });
   }
 });
@@ -51,7 +51,7 @@ router.get("/:id", async (req, res) => {
       return;
     }
     res.status(500).send({
-      message: message || "An error occurs while retrieving the company",
+      message: err.message || "An error occurs while retrieving the company",
     });
   }
 });

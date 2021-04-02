@@ -51,5 +51,5 @@ exports.findOne = async (id) => {
     notFoundError.code = "NOT_FOUND";
     throw notFoundError;
   }
-  return Company.findByPk(id);
+  return company;
 };

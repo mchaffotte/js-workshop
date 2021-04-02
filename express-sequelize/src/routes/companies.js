@@ -11,4 +11,8 @@ router.delete("/:id", companiesController.delete);
 
 router.get("/:id", companiesController.findOne);
 
+router.put("/:id/employees/:employeeId", companiesController.addEmployee);
+
+router.get("/:id/employees", companiesController.getEmployees);
+
 module.exports = router;

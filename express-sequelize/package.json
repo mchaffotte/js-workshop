@@ -10,11 +10,18 @@
   ],
   "main": "src/server.js",
   "scripts": {
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "test": "mocha \"test/**/*.test.js\""
   },
   "dependencies": {
     "express": "4.17.1",
     "mysql2": "2.2.5",
     "sequelize": "6.6.2"
+  },
+  "devDependencies": {
+    "chai": "4.3.4",
+    "chai-as-promised": "7.1.1",
+    "mocha": "8.3.2",
+    "sinon": "10.0.0"
   }
 }

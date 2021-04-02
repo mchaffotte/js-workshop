@@ -38,6 +38,18 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.put("/:id", async (req, res) => {
+  try {
+    const company = await companyService.update(req.params.id, req.body);
+    res.send(company);
+  } catch (err) {
+    console.log(err);
+    res.status(409).send({
+      message: err.message || "An error occurs while updating the company",
+    });
+  }
+});
+
 router.delete("/:id", async (req, res) => {
   try {
     await companyService.delete(req.params.id);

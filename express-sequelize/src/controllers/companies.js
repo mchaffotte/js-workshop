@@ -1,9 +1,7 @@
 const companyService = require("../services/companies.js");
 const converter = require("./converter");
 
-const router = require("express").Router();
-
-router.get("/", async (req, res) => {
+exports.findAndCountAll = async (req, res) => {
   const limit = converter.getNumberFromString(req.query.limit);
   const offset = converter.getNumberFromString(req.query.offset);
   try {
@@ -15,9 +13,9 @@ router.get("/", async (req, res) => {
       message: err.message || "An error occurs while retriving companies",
     });
   }
-});
+};
 
-router.post("/", async (req, res) => {
+exports.create = async (req, res) => {
   try {
     const company = await companyService.create(req.body);
     res.send(company);
@@ -29,9 +27,9 @@ router.post("/", async (req, res) => {
       message: message || "An error occurs while creating the company",
     });
   }
-});
+};
 
-router.put("/:id", async (req, res) => {
+exports.update = async (req, res) => {
   try {
     const company = await companyService.update(req.params.id, req.body);
     res.send(company);
@@ -41,9 +39,9 @@ router.put("/:id", async (req, res) => {
       message: err.message || "An error occurs while updating the company",
     });
   }
-});
+};
 
-router.delete("/:id", async (req, res) => {
+exports.delete = async (req, res) => {
   try {
     await companyService.delete(req.params.id);
     res.status(204).send();
@@ -53,9 +51,9 @@ router.delete("/:id", async (req, res) => {
       message: err.message || "An error occurs while deleting the company",
     });
   }
-});
+};
 
-router.get("/:id", async (req, res) => {
+exports.findOne = async (req, res) => {
   try {
     const company = await companyService.findOne(req.params.id);
     res.send(company);
@@ -69,6 +67,4 @@ router.get("/:id", async (req, res) => {
       message: err.message || "An error occurs while retrieving the company",
     });
   }
-});
-
-module.exports = router;
+};

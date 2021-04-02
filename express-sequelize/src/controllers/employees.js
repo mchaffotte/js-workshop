@@ -3,7 +3,7 @@ const converter = require("./converter");
 
 const router = require("express").Router();
 
-router.get("/", async (req, res) => {
+exports.findAndCountAll = async (req, res) => {
   const limit = converter.getNumberFromString(req.query.limit);
   const offset = converter.getNumberFromString(req.query.offset);
   try {
@@ -18,9 +18,9 @@ router.get("/", async (req, res) => {
       message: err.message || "An error occurs while retriving employees",
     });
   }
-});
+};
 
-router.post("/", async (req, res) => {
+exports.create = async (req, res) => {
   try {
     const employee = await employeeService.create(req.body);
     res.send(employee);
@@ -32,9 +32,9 @@ router.post("/", async (req, res) => {
       message: message || "An error occurs while creating the employee",
     });
   }
-});
+};
 
-router.put("/:id", async (req, res) => {
+exports.update = async (req, res) => {
   try {
     const employee = await employeeService.update(req.params.id, req.body);
     res.send(employee);
@@ -44,9 +44,9 @@ router.put("/:id", async (req, res) => {
       message: err.message || "An error occurs while updating the employee",
     });
   }
-});
+};
 
-router.delete("/:id", async (req, res) => {
+exports.delete = async (req, res) => {
   try {
     await employeeService.delete(req.params.id);
     res.status(204).send();
@@ -56,9 +56,9 @@ router.delete("/:id", async (req, res) => {
       message: err.message || "An error occurs while deleting the employee",
     });
   }
-});
+};
 
-router.get("/:id", async (req, res) => {
+exports.findOne = async (req, res) => {
   try {
     const employee = await employeeService.findOne(req.params.id);
     res.send(employee);
@@ -72,6 +72,4 @@ router.get("/:id", async (req, res) => {
       message: err.message || "An error occurs while retrieving the employee",
     });
   }
-});
-
-module.exports = router;
+};

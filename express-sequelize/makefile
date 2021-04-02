@@ -9,3 +9,6 @@ start: ## Start the server
 
 stop: ## Stop the serve
 	docker-compose down -v
+
+unit-test: ## Run unit tests
+	docker-compose run server yarn test

@@ -68,3 +68,38 @@ exports.findOne = async (req, res) => {
     });
   }
 };
+
+exports.addEmployee = async (req, res) => {
+  try {
+    await companyService.addEmployee(req.params.id, req.params.employeeId);
+    res.status(204).send();
+  } catch (err) {
+    console.log(err);
+    if (err.code === "NOT_FOUND") {
+      res.status(404).send();
+      return;
+    }
+    res.status(409).send({
+      message:
+        err.message ||
+        "An error occurs while linking the employee to the company",
+    });
+  }
+};
+
+exports.getEmployees = async (req, res) => {
+  try {
+    const employees = await companyService.getEmployees(req.params.id);
+    res.send(employees);
+  } catch (err) {
+    console.log(err);
+    if (err.code === "NOT_FOUND") {
+      res.status(404).send();
+      return;
+    }
+    res.status(409).send({
+      message:
+        message || "An error occurs while getting the employees of the company",
+    });
+  }
+};

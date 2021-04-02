@@ -1,3 +1,5 @@
+const employeeService = require("./employees");
+
 const db = require("../repository");
 const Company = db.companies;
 
@@ -52,4 +54,15 @@ exports.findOne = async (id) => {
     throw notFoundError;
   }
   return company;
+};
+
+exports.addEmployee = async (id, employeeId) => {
+  const company = await this.findOne(id);
+  const employee = await employeeService.findOne(employeeId);
+  company.addEmployee(employee);
+};
+
+exports.getEmployees = async (id) => {
+  const company = await this.findOne(id);
+  return company.getEmployees();
 };

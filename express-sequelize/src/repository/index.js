@@ -19,6 +19,8 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.companies = require("../models/companies.js")(sequelize, Sequelize);
+const entities = require("../models")(sequelize, Sequelize);
+db.companies = entities.Company;
+db.employees = entities.Employee;
 
 module.exports = db;

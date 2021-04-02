@@ -12,7 +12,7 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to express workshop." });
 });
 
-require("./controllers")(app);
+require("./routes")(app);
 
 const PORT = 8080;
 app.listen(PORT, () => {

@@ -13,8 +13,9 @@ const bootstrap = async () => {
     .addTag('company')
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('doc', app, document);
 
+  app.setGlobalPrefix('api');
   await app.listen(3000, 'localhost');
   console.log(`Application is running on: ${await app.getUrl()}`);
 };

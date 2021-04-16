@@ -20,8 +20,15 @@ export class EmployeesService {
     return employee.save();
   }
 
-  findAll(): Promise<Employee[]> {
-    return this.employeeModel.findAll();
+  findAll(
+    offset = 0,
+    limit = 10,
+  ): Promise<{ rows: Employee[]; count: number }> {
+    return this.employeeModel.findAndCountAll({
+      limit: Math.max(10, limit),
+      offset: Math.max(0, offset),
+      order: ['id'],
+    });
   }
 
   findOne(id: number): Promise<Employee> {

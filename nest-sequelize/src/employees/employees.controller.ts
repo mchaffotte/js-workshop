@@ -6,6 +6,8 @@ import {
   Patch,
   Param,
   Delete,
+  ParseIntPipe,
+  Query,
 } from '@nestjs/common';
 import { EmployeesService } from './employees.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
@@ -22,13 +24,16 @@ export class EmployeesController {
   }
 
   @Get()
-  findAll(): Promise<Employee[]> {
-    return this.employeesService.findAll();
+  findAll(
+    @Query('offset') offset: number,
+    @Query('limit') limit: number,
+  ): Promise<{ rows: Employee[]; count: number }> {
+    return this.employeesService.findAll(offset, limit);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string): Promise<Employee> {
-    return this.employeesService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number): Promise<Employee> {
+    return this.employeesService.findOne(id);
   }
 
   @Patch(':id')

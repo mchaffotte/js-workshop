@@ -8,17 +8,20 @@ import {
   Delete,
   ParseIntPipe,
   Query,
+  UseInterceptors,
 } from '@nestjs/common';
 import { EmployeesService } from './employees.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { Employee } from './employee.model';
+import { TransactionInterceptor } from 'src/interceptors/TransactionInterceptor';
 
 @Controller('employees')
 export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) {}
 
   @Post()
+  @UseInterceptors(TransactionInterceptor)
   create(@Body() createEmployeeDto: CreateEmployeeDto): Promise<Employee> {
     return this.employeesService.create(createEmployeeDto);
   }
@@ -37,6 +40,7 @@ export class EmployeesController {
   }
 
   @Patch(':id')
+  @UseInterceptors(TransactionInterceptor)
   update(
     @Param('id') id: string,
     @Body() updateEmployeeDto: UpdateEmployeeDto,
@@ -45,6 +49,7 @@ export class EmployeesController {
   }
 
   @Delete(':id')
+  @UseInterceptors(TransactionInterceptor)
   remove(@Param('id') id: string): Promise<void> {
     return this.employeesService.remove(+id);
   }
